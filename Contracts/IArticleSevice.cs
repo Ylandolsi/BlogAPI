@@ -5,7 +5,7 @@ namespace Contracts;
 public interface IArticleSevice
 {
     Task CreateArticle(Article article);
-    Task DeleteArticle(Article article);
+    Task DeleteArticle(int idArticle);
     Task UpdateArticle(Article article);
     Task<IEnumerable<Article>> GetAllArticlesAsync(bool trackChanges);
     Task<Article> GetArticleAsync(int articleId, bool trackChanges);

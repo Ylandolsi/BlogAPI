@@ -10,31 +10,31 @@ public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
     {
     }
 
-    public void CreateArticle(Article article)
+    public async Task CreateArticle(Article article)
     {
-        Create(article);
+        await CreateAsync(article);
     }
 
-    public void DeleteArticle(Article article)
+    public async Task DeleteArticle(Article article)
     {
-        Delete(article);
+        await Delete(article);
     }
 
-    public void UpdateArticle(Article article)
+    public async Task UpdateArticle(Article article)
     {
-        Update(article);
+        await Update(article);
     }
 
     public async Task<IEnumerable<Article>> GetAllArticlesAsync(bool trackChanges)
-        => await FindAll(trackChanges).ToListAsync();
+        => await FindAllAsync(trackChanges);
 
     public async Task<IEnumerable<Article>> GetArticlesByIdsAsync(IEnumerable<int> ids, bool trackChanges)
         =>
-            await FindByCondition(x => ids.Contains(x.IdArticle), trackChanges).ToListAsync();
-    
+            await FindByConditionAsync(x => ids.Contains(x.IdArticle), trackChanges);
+
     public async Task<Article> GetArticleAsync(int articleId, bool trackChanges)
-    => await FindByCondition(x => x.IdArticle.Equals(articleId), trackChanges).FirstOrDefaultAsync();
-    
-    
-    
+    {
+        var listArticle = await FindByConditionAsync(x => x.IdArticle.Equals(articleId), trackChanges);
+        return listArticle.FirstOrDefault();
+    }
 }

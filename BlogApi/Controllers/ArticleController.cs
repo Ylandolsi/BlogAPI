@@ -36,8 +36,7 @@ public class ArticleController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteArticle(int id)
     {
-        var article = await _articleSevice.GetArticleAsync(id, false);
-        await _articleSevice.DeleteArticle(article);
+        await _articleSevice.DeleteArticle(id);
         return Ok();
     }
 

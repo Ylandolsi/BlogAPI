@@ -5,7 +5,6 @@ namespace Models.Models;
 public class Article
 {
     [Key]
-    [Range(1, int.MaxValue, ErrorMessage = "IdArticle must be at least 1")]
     public int IdArticle { get; set; }
     [MinLength(5, ErrorMessage = "Title must be at least 5 characters"), MaxLength(50, ErrorMessage = "Title must be at most 50 characters")]
 
