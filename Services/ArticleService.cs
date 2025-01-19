@@ -28,8 +28,8 @@ public class ArticleService : IArticleSevice
             _logger.LogInformation("Article is null");
             throw new ArticleBadRequestException();
         }
-        _logger.LogInformation("Article is not null");
 
+        _logger.LogInformation("Article is not null");
     }
 
     public async Task CreateArticle(Article article)
@@ -43,30 +43,29 @@ public class ArticleService : IArticleSevice
             _logger.LogInformation("ID article does not exist on DB ");
             throw new ArticleNotFoundException();
         }
+
         _logger.LogInformation("ID article exists on DB ");
         await _articleRepository.CreateArticle(article);
         await _contextRepository.SaveChangesAsync();
-        _logger.LogInformation("Article Created and Saved"); 
+        _logger.LogInformation("Article Created and Saved");
     }
 
     public async Task DeleteArticle(int idArticle)
     {
         _logger.LogInformation("Deleting article ( By ID )");
         _logger.LogInformation("Checking if article with Id exists ");
-        
+
         var article = await _articleRepository.GetArticleAsync(idArticle, false);
         CheckNullArticle(article);
         await _articleRepository.DeleteArticle(article);
         await _contextRepository.SaveChangesAsync();
         _logger.LogInformation("Article Deleted");
-        
-        
     }
 
     public async Task UpdateArticle(Article article)
     {
         _logger.LogInformation("Updating article");
-        
+
         CheckNullArticle(article);
         _logger.LogInformation("Checking if article exists");
         var checkArticle = await _articleRepository.GetArticleAsync(article.IdArticle, false);
@@ -84,12 +83,11 @@ public class ArticleService : IArticleSevice
     public async Task<IEnumerable<Article>> GetAllArticlesAsync(bool trackChanges)
     {
         _logger.LogInformation("Getting all articles");
-        
+
         var Articles = await _articleRepository.GetAllArticlesAsync(trackChanges);
         if (Articles == null)
             throw new ArticleNotFoundException();
         return Articles;
-        
     }
 
     public async Task<Article> GetArticleAsync(int articleId, bool trackChanges)
@@ -100,13 +98,14 @@ public class ArticleService : IArticleSevice
             _logger.LogInformation("( Error  ) ID is 0");
             throw new IdBadRequestException();
         }
-        
+
         var Articles = await _articleRepository.GetArticleAsync(articleId, trackChanges);
         if (Articles == null)
         {
             _logger.LogInformation("Article does not exist with the given id ");
             throw new ArticleNotFoundException();
         }
+
         return Articles;
     }
 
@@ -118,6 +117,7 @@ public class ArticleService : IArticleSevice
             _logger.LogInformation("IDs are null");
             throw new IdBadRequestException();
         }
+
         return await _articleRepository.GetArticlesByIdsAsync(ids, trackChanges);
     }
 }

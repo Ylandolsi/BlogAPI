@@ -9,13 +9,11 @@ public static class ConifgureHttpRequestPipeline
         // global error with request delegate
         // app.UseMiddleware<GlobalErrorHandlerMiddleware>(); // adds the GlobalErrorHandlerMiddleware to the pipeline
 
-        
+
         // global error with IExceptionHandler :
         // check the Servicee (Problem details & ExceptionHandler are injected in service )
-        app.UseExceptionHandler(); 
-        
-        
-        
+        app.UseExceptionHandler();
+
 
         // No, HSTS (HTTP Strict Transport Security)
         // HSTS is a security policy mechanism that helps to protect websites against
@@ -38,14 +36,14 @@ public static class ConifgureHttpRequestPipeline
         app.UseStaticFiles(); // Enable static files ( html , css , js , images .. )  to be served
         app.UseRouting(); // maps incoming requests to route handlers
 
-// Forward Proxy headers to the current request : helps when depoloyement 
+        // ensures that the ASP.NET Core application behaves as if it were directly receiving requests from the client, even though it is behind a reverse proxy
         app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
         app.UseCors("CorsPolicy"); // allowing or blocking  requests from different origins ( cross-origin requests )
 
         app.UseAuthentication(); // handles authentication or identity of use by checking ( jwt tokens , cookies , ect ... ) 
         app.UseAuthorization(); // after authentication , checks if the user is authorized to access the requested resource
 
-        
+
         app.MapControllers(); // adds the endpoint from controller actions to the IEndpointRouteBuilder
         // app.UseEndpoints(endpoints =>
         // {
