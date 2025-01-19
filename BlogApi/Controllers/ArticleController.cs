@@ -20,7 +20,6 @@ public class ArticleController : ControllerBase
     [HttpGet("collection")]
     public async Task<IActionResult> GetArticles()
     {
-        _logger.LogInformation("Fetching all articles");
         var articles = await _articleSevice.GetAllArticlesAsync(false);
         return Ok(articles);
     }

@@ -1,6 +1,6 @@
-@ToDoListApi_HostAddress = http://localhost:5255
+@BlogApiHostAdress = http://localhost:5090
 
-GET {{ToDoListApi_HostAddress}}/ToDoListApi/
+GET {{BlogApiHostAdress}}/api/article/collection
 Accept: application/json
 
 ###
